@@ -32,17 +32,14 @@ app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
 
 // CORS Configuration
 const allowedOrigins = ['https://social-app-frontend-psi.vercel.app']; // Add your Vercel frontend URL here
+import cors from "cors";
+
 app.use(cors({
-  origin: (origin, callback) => {
-    if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
-      callback(null, true); // Allow the request
-    } else {
-      callback(new Error('Not allowed by CORS'), false); // Reject the request
-    }
-  },
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],
-  credentials: true,
+  origin: 'https://social-app-frontend-psi.vercel.app', // Allow requests only from your frontend URL
+  methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'],  // Allow specific HTTP methods
+  allowedHeaders: ['Content-Type', 'Authorization']    // Allow these headers
 }));
+
 
 app.use("/assets", express.static(path.join(__dirname, "public/assets")));
 
