@@ -1,7 +1,7 @@
 import express from "express";
 import bodyParser from "body-parser";
 import mongoose from "mongoose";
-import cors from "cors";
+import cors from "cors"; // Keep this import at the top
 import dotenv from "dotenv";
 import multer from "multer";
 import helmet from "helmet";
@@ -32,14 +32,12 @@ app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
 
 // CORS Configuration
 const allowedOrigins = ['https://social-app-frontend-psi.vercel.app']; // Add your Vercel frontend URL here
-import cors from "cors";
 
 app.use(cors({
-  origin: 'https://social-app-frontend-psi.vercel.app', // Allow requests only from your frontend URL
+  origin: allowedOrigins, // Allow requests only from your frontend URL
   methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'],  // Allow specific HTTP methods
   allowedHeaders: ['Content-Type', 'Authorization']    // Allow these headers
 }));
-
 
 app.use("/assets", express.static(path.join(__dirname, "public/assets")));
 
